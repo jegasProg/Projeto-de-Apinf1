@@ -19,10 +19,10 @@ async def register(email: str, senha: str, nome: str):
      cursor.execute(email,)
      usuario = cursor.fetchone()
      if usuario:
-         db.close
+         db.close()
          return {"O usuario já existe"}
      else:
          cursor.execute(nome, email, senha)
-         db.commit
-         db.close
+         db.commit()
+         db.close()
          return {"O usuario foi criado com sucesso"}
