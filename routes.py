@@ -16,7 +16,7 @@ async def pedidos():
 @auth_routes.post("/criar conta")
 async def register(email: str, senha: str, nome: str):
      db.row_factory = sqlite3.Row
-     cursor.execute(email,)
+     cursor.execute(email)
      usuario = cursor.fetchone()
      if usuario:
          db.close()
