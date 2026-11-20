@@ -1,10 +1,12 @@
 import random
+import math
 
 class Alunos:
-    def __init__(self, nome, coluna, linha, caracteristicas=None):
+    def __init__(self, nome, coluna, linha, media, caracteristicas=None):
         self.nome = nome
         self.coluna = coluna
         self.linha = linha
+        self.media = media
         self.caracteristicas = caracteristicas if caracteristicas else []
 
     def mostrar_posição(self):
@@ -24,12 +26,29 @@ random.shuffle(lugares_disponiveis)
 
 for i in range(numero_de_alunos):
     nome = input("Nome do aluno:  ")
+    while True:
+        try:
+            media = float(input("Media do aluno..."))
+            break
+        except ValueError:
+            print("Erro")
+
     resposta = input("Dificuldades do seu aluno separado por (,) ou pressione enter para continuar sem dificuldades.").lower().split(",")
-    dados_alunos.append((nome, resposta))
+    dados_alunos.append((nome, resposta, media))
 
     # coluna_aleatoria, linha_aleatoria = lugares_disponiveis.pop()
     # novo_aluno = Alunos(nome, coluna_aleatoria, linha_aleatoria, resposta)
     # Turma.append(novo_aluno)
+
+Turma_ordenada = sorted(dados_alunos, key=lambda x: x[2], reverse=True)
+Turma_intercalada = []
+Turma_metade = math.ceil(numero_de_alunos/2)
+
+for i in range(Turma_metade):
+    Turma_intercalada.append(Turma_ordenada[i])
+    indice_inferior = len(Turma_ordenada) - 1 - i
+    if indice_inferior > i:
+        Turma_intercalada.append(Turma_ordenada[indice_inferior])
 
 lugares_frente = []
 lugares_laterais = []
@@ -42,7 +61,7 @@ for lugares in lugares_disponiveis:
 
 alunos_sem_lugar = []
 
-for nome, dificuldades in dados_alunos:
+for nome, dificuldades, media in dados_alunos:
     texto_junto = " ".join(dificuldades)
     if ("miopia" in texto_junto or "audição" in texto_junto) and lugares_frente:
         lugar = lugares_frente.pop()
@@ -56,6 +75,9 @@ for nome, dificuldades in dados_alunos:
 
     else:
         alunos_sem_lugar.append((nome, dificuldades))
+
+random.shuffle(alunos_sem_lugar)
+lugares_especiais = lugares_frente + lugares_laterais
 
 for nome, dificuldades in alunos_sem_lugar:
     lugar = lugares_disponiveis.pop()
