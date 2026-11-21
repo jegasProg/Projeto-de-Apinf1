@@ -1,0 +1,14 @@
+body {
+    background-color: rgb(66, 167, 201);
+    font-family: Arial, sans-serif;
+    margin: 0;
+
+}
+
+.cartao-turma {
+    background-color: white;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+}
+
